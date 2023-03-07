@@ -135,7 +135,7 @@ __Note:__ This isn't the only way to accomplish implementation, however; this is
 
 	- [ ] Refactor constructor of `BaseGradeBook`
 		_Note, once this group of tasks is begun the code will not compile until the entire group of tasks is complete._
-		- [ ] Add a `bool` to the `BaseGradeBook` constructor
+		- [x] Add a `bool` to the `BaseGradeBook` constructor
 			- This should be of type `bool`.
 			- This should be the second parameter.
 		- [ ] Set `IsWeight` in the `BaseGradeBook` constructor
