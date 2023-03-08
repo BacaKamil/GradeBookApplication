@@ -20,23 +20,29 @@ namespace GradeBook.GradeBooks
                 throw new InvalidOperationException("Ranked grading requires at least 5 students.");
             }
 
-            var limit = (int)Math.Ceiling(Students.Count * 0.2);
-            var grades = Students.OrderByDescending(s => s.AverageGrade).Select(s => s.AverageGrade).ToList();
-            var index = grades.IndexOf(averageGrade);
+            int threshold = (int)Math.Ceiling(Students.Count * 0.2);
 
-            if (index < limit)
+            List<double> grades = Students.OrderByDescending(s => s.AverageGrade).Select(s => s.AverageGrade).ToList();
+
+            int rank = grades.FindIndex(g => g == averageGrade);
+            if (rank < 0)
+            {
+                rank = grades.FindIndex(g => g < averageGrade);
+            }
+
+            if (rank < threshold)
             {
                 return 'A';
             }
-            else if (index < limit * 2)
+            else if (rank < threshold * 2)
             {
                 return 'B';
             }
-            else if (index < limit * 3)
+            else if (rank < threshold * 3)
             {
                 return 'C';
             }
-            else if (index < limit * 4)
+            else if (rank < threshold * 4)
             {
                 return 'D';
             }
@@ -56,6 +62,18 @@ namespace GradeBook.GradeBooks
 
             base.CalculateStatistics();
         }
+
+        public override void CalculateStudentStatistics(string name)
+        {
+            if (Students.Count < 5)
+            {
+                Console.WriteLine("Ranked grading requires at least 5 students.");
+                return;
+            }
+
+            base.CalculateStudentStatistics(name);
+        }
+
     }
 }
 
